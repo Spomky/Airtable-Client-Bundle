@@ -1,0 +1,7 @@
+services:
+  fqcnClient:
+    alias: Yoanbernabeu\AirtableClientBundle\AirtableClient
+    public: true
+  aliasClient:
+    alias: yoanbernabeu_airtable_client.airtable_client
+    public: true

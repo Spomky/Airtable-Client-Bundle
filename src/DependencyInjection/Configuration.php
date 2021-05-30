@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Yoanbernabeu\AirtableClientBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -11,11 +14,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('airtable_client');
         $treeBuilder->getRootNode()
             ->children()
-                ->scalarNode('key')->end()
-                ->scalarNode('id')->end()
+            ->scalarNode('key')->end()
+            ->scalarNode('id')->end()
             ->end()
         ;
-        
+
         return $treeBuilder;
     }
 }
