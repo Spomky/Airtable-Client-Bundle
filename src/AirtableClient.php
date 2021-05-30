@@ -30,9 +30,9 @@ class AirtableClient
     /**
      * Returns a set of rows from AirTable.
      *
-     * @param mixed  $table     Table name
-     * @param mixed  $view      View name
-     * @param string $dataClass The class name which will hold fields data
+     * @param string      $table     Table name
+     * @param string|null $view      View name
+     * @param string|null $dataClass The class name which will hold fields data
      */
     public function findAll(string $table, ?string $view = null, ?string $dataClass = null): array
     {
@@ -40,7 +40,7 @@ class AirtableClient
             '%s/%s%s',
             $this->id,
             $table,
-            $view ? '?view='.$view : ''
+            null !== $view ? '?view='.$view : ''
         );
 
         $response = $this->request($url);
@@ -53,10 +53,10 @@ class AirtableClient
      *
      * Allows you to filter on a field in the table
      *
-     * @param mixed  $table     Table name
-     * @param mixed  $field     Search field name
-     * @param mixed  $value     Wanted value
-     * @param string $dataClass The class name which will hold fields data
+     * @param string      $table     Table name
+     * @param string      $field     Search field name
+     * @param string      $value     Wanted value
+     * @param string|null $dataClass The class name which will hold fields data
      */
     public function findBy(string $table, string $field, string $value, ?string $dataClass = null): array
     {
@@ -70,9 +70,9 @@ class AirtableClient
     /**
      * findOneById.
      *
-     * @param mixed  $table     Table Name
-     * @param mixed  $id        Id
-     * @param string $dataClass The name of the class which will hold fields data
+     * @param string      $table     Table Name
+     * @param string      $id        Id
+     * @param string|null $dataClass The name of the class which will hold fields data
      *
      * @return array|object
      */
@@ -83,7 +83,7 @@ class AirtableClient
 
         $recordData = $response->toArray();
 
-        if ($dataClass) {
+        if (null !== $dataClass) {
             $recordData['fields'] = $this->normalizer->denormalize($recordData['fields'], $dataClass);
         }
 
@@ -95,7 +95,7 @@ class AirtableClient
      *
      * Field allowing filtering
      *
-     * @param mixed  $table     Table name
+     * @param string $table     Table name
      * @param mixed  $field
      * @param string $dataClass The name of the class which will hold fields data
      */
@@ -112,7 +112,7 @@ class AirtableClient
             return null;
         }
 
-        if ($dataClass) {
+        if (null !== $dataClass) {
             $recordData['fields'] = $this->normalizer->denormalize($recordData['fields'], $dataClass);
         }
 
@@ -136,17 +136,18 @@ class AirtableClient
     /**
      * Turns an array of arrays to an array of AirtableRecord objects.
      *
-     * @param array $records An array of arrays
+     * @param array       $records   An array of arrays
      * @param string|null $dataClass Optionnal class name which will hold record's fields
      *
-     * @return array An array of AirtableRecords objects
      * @throws ExceptionInterface
+     *
+     * @return array An array of AirtableRecords objects
      */
     private function mapRecordsToAirtableRecords(array $records, string $dataClass = null): array
     {
         return array_map(
-            function (array $recordData) use ($dataClass):AirtableRecord {
-                if ($dataClass !== null) {
+            function (array $recordData) use ($dataClass): AirtableRecord {
+                if (null !== $dataClass) {
                     $recordData['fields'] = $this->normalizer->denormalize($recordData['fields'], $dataClass);
                 }
 

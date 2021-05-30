@@ -13,7 +13,7 @@ use Yoanbernabeu\AirtableClientBundle\Exception\MissingRecordDataException;
 final class AirtableRecord
 {
     /**
-     * @var mixed $fields
+     * @var mixed
      */
     private $fields;
     private string $id;
