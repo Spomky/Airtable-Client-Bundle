@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Yoanbernabeu\AirtableClientBundle\Tests;
 
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -22,6 +23,7 @@ class TestKernel extends Kernel
     public function registerBundles(): array
     {
         return [
+            new FrameworkBundle(),
             new AirtableClientBundle(),
         ];
     }

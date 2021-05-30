@@ -12,20 +12,23 @@ declare(strict_types=1);
  */
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Yoanbernabeu\AirtableClientBundle\AirtableClient;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $container): void {
-    $container = $container->services()->defaults()
-        ->private()
-        ->autoconfigure()
-        ->autowire()
-    ;
+    $services = $container->services();
 
-    $container->set(AirtableClient::class)
+    $services->set(AirtableClient::class)
+        ->private()
         ->args([
             '%yoanbernabeu_airtable_client.airtable_client.key%',
             '%yoanbernabeu_airtable_client.airtable_client.id%',
+            service(HttpClientInterface::class),
+            service(ObjectNormalizer::class),
         ])
-        ->alias('yoanbernabeu_airtable_client.airtable_client')
     ;
+
+    $services->alias('yoanbernabeu_airtable_client.airtable_client', AirtableClient::class);
 };

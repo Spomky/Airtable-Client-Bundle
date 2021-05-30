@@ -12,11 +12,22 @@
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
-
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
     </coverage>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+        <ini name="intl.default_locale" value="en"/>
+        <ini name="intl.error_level" value="0"/>
+        <ini name="memory_limit" value="-1"/>
+        <server name="KERNEL_CLASS" value="Yoanbernabeu\AirtableClientBundle\Tests\TestKernel"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_SECRET" value="$ecretf0rt3st"/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9"/>
+    </php>
 </phpunit>

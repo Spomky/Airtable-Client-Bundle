@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yoanbernabeu\AirtableClientBundle\Tests;
+namespace Yoanbernabeu\AirtableClientBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Yoanbernabeu\AirtableClientBundle\AirtableClient;
